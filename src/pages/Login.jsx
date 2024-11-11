@@ -21,7 +21,7 @@ export default function Login() {
   const submitHandler = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post('https://ems-server-pi.vercel.app/api/auth/login', { email, password })
+      const response = await axios.post('https://ems-server.onrender.com/api/auth/login', { email, password })
       if (response.data.success) {
         toast.success('Login Succesfully ..')
         localStorage.setItem('token', response.data.token)

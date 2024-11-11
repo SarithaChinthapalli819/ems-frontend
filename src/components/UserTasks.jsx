@@ -42,13 +42,13 @@ function UserTasks() {
   }
   )
   const statusChange =async (title,id)=>{
-    const response = await axios.put(`https://ems-server-pi.vercel.app/api/tasks/updateTaskStatus/${id}`,{title},{
+    const response = await axios.put(`https://ems-server.onrender.com/api/tasks/updateTaskStatus/${id}`,{title},{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
   })
     if(response.data.success){
-      const response = await axios.get(`https://ems-server-pi.vercel.app/api/tasks/getMyTasks/${role}`,{
+      const response = await axios.get(`https://ems-server.onrender.com/api/tasks/getMyTasks/${role}`,{
         headers:{
             authorization:`Bearer ${localStorage.getItem("token")}`
         }
@@ -125,7 +125,7 @@ function UserTasks() {
   };
 
   const tasksValue = async()=>{
-    const response = await axios.get(`https://ems-server-pi.vercel.app/api/tasks/getMyTasks/${role}`,{
+    const response = await axios.get(`https://ems-server.onrender.com/api/tasks/getMyTasks/${role}`,{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
@@ -211,13 +211,13 @@ function UserTasks() {
         },
       });
      
-      const response = await axios.put(`https://ems-server-pi.vercel.app/api/tasks/updateTaskStatus/${draggableId}`,{title},{
+      const response = await axios.put(`https://ems-server.onrender.com/api/tasks/updateTaskStatus/${draggableId}`,{title},{
         headers:{
             authorization:`Bearer ${localStorage.getItem("token")}`
         }
     })
       if(response.data.success){
-        const response = await axios.get(`https://ems-server-pi.vercel.app/api/tasks/getMyTasks/${role}`,{
+        const response = await axios.get(`https://ems-server.onrender.com/api/tasks/getMyTasks/${role}`,{
           headers:{
               authorization:`Bearer ${localStorage.getItem("token")}`
           }

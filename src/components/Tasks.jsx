@@ -53,7 +53,7 @@ export default function Tasks({row,openTaskPage}) {
   }
 
   const addProjectMember = async ()=>{
-    const response =await axios.get(`https://ems-server-pi.vercel.app/api/board/getMember/${row._id}`)
+    const response =await axios.get(`https://ems-server.onrender.com/api/board/getMember/${row._id}`)
     setTeammeber(response.data.members[0].User)
   }
 
@@ -81,7 +81,7 @@ export default function Tasks({row,openTaskPage}) {
 
   const addTaks = async(taskName,userId,selectedDateFrom,projectId,priority)=>{
     
-    const response = await axios.post('https://ems-server-pi.vercel.app/api/tasks/AddTasks',{taskName,userId,selectedDateFrom,projectId,priority},{
+    const response = await axios.post('https://ems-server.onrender.com/api/tasks/AddTasks',{taskName,userId,selectedDateFrom,projectId,priority},{
         headers:{
             authorization:`Bearer ${localStorage.getItem("token")}`
         }
@@ -96,7 +96,7 @@ export default function Tasks({row,openTaskPage}) {
   
   const editTasks = async(taskName,userId,selectedDateFrom,projectId,priority)=>{
     
-    const response = await axios.put(`https://ems-server-pi.vercel.app/api/tasks/updateTasks/${currentTask._id}`,{taskName,userId,selectedDateFrom,projectId,priority})
+    const response = await axios.put(`https://ems-server.onrender.com/api/tasks/updateTasks/${currentTask._id}`,{taskName,userId,selectedDateFrom,projectId,priority})
     if(response.data.success)
     {
       toast.success('Task Updated Successfully ..')
@@ -107,7 +107,7 @@ export default function Tasks({row,openTaskPage}) {
 
   const deleteTasks = async(id)=>{
     
-    const response = await axios.delete(`https://ems-server-pi.vercel.app/api/tasks/deleteTasks/${id}`)
+    const response = await axios.delete(`https://ems-server.onrender.com/api/tasks/deleteTasks/${id}`)
     if(response.data.success)
     {
       toast.success('Task Deleted Successfully ..')
@@ -117,7 +117,7 @@ export default function Tasks({row,openTaskPage}) {
   }
 
   const tasksValue = async()=>{
-    const response = await axios.get(`https://ems-server-pi.vercel.app/api/tasks/getTasks/${row._id}`,{
+    const response = await axios.get(`https://ems-server.onrender.com/api/tasks/getTasks/${row._id}`,{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
@@ -127,13 +127,13 @@ export default function Tasks({row,openTaskPage}) {
   }
 
   const statusChange =async (title,id)=>{
-    const response = await axios.put(`https://ems-server-pi.vercel.app/api/tasks/updateTaskStatus/${id}`,{title},{
+    const response = await axios.put(`https://ems-server.onrender.com/api/tasks/updateTaskStatus/${id}`,{title},{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
   })
     if(response.data.success){
-      const response = await axios.get(`https://ems-server-pi.vercel.app/api/tasks/getTasks/${row._id}`,{
+      const response = await axios.get(`https://ems-server.onrender.com/api/tasks/getTasks/${row._id}`,{
         headers:{
             authorization:`Bearer ${localStorage.getItem("token")}`
         }

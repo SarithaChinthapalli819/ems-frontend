@@ -20,7 +20,7 @@ export default function Teams() {
   const [isActive, setIsActiveValue] = useState(1)
 
   const teamsChange = async () => {
-    const response = await axios.get(`https://ems-server-pi.vercel.app/api/teams/${isActive}`)
+    const response = await axios.get(`https://ems-server.onrender.com/api/teams/${isActive}`)
     if (response.data.success) {
       console.log(response.data.teams)
       const teamdetails = response.data.teams.map((item) => ({
@@ -60,7 +60,7 @@ export default function Teams() {
     setTeamModel(true)
   }
   const addTeam = async (teamname) => {
-    const response = await axios.post('https://ems-server-pi.vercel.app/api/teams/addteam', { teamname })
+    const response = await axios.post('https://ems-server.onrender.com/api/teams/addteam', { teamname })
 
     if (response.data.success) {
       setTeamModel(false)
@@ -68,7 +68,7 @@ export default function Teams() {
     }
   }
   const editTeam = async (teamname) => {
-    const response = await axios.put(`https://ems-server-pi.vercel.app/api/teams/editteam/${currentTeam.id}`, { teamname })
+    const response = await axios.put(`https://ems-server.onrender.com/api/teams/editteam/${currentTeam.id}`, { teamname })
     if (response.data.success) {
       setTeamModel(false)
       setCurrentTeam(null)
@@ -84,7 +84,7 @@ export default function Teams() {
   const setIsDelete = async (value) => {
     console.log(value)
     if (value) {
-      const response = await axios.delete(`https://ems-server-pi.vercel.app/api/teams/deleteteam/${deleteId}`)
+      const response = await axios.delete(`https://ems-server.onrender.com/api/teams/deleteteam/${deleteId}`)
       if (response.data.success) {
         teamsChange()
         setDeleteModel(false);

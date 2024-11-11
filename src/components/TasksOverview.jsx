@@ -11,7 +11,7 @@ export default function TasksOverview() {
     const [assigneName,setAssigneName] = useState()
     const [employeeTasks,setEmployeeTasks] = useState([])
     const fetchTasks = async () => {
-        const response = await axios.get('https://ems-server-pi.vercel.app/api/tasks/getAllTasks');
+        const response = await axios.get('https://ems-server.onrender.com/api/tasks/getAllTasks');
         setTasks(response.data.tasks);
     };
 
@@ -20,7 +20,7 @@ export default function TasksOverview() {
     }, []);
 
     const addProjectMember = async ()=>{
-        const response =await axios.get(`https://ems-server-pi.vercel.app/api/user/1`,{
+        const response =await axios.get(`https://ems-server.onrender.com/api/user/1`,{
             headers:{
                 authorization:`Bearer ${localStorage.getItem("token")}`
             }
