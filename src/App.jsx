@@ -24,11 +24,7 @@ export default function App() {
   const [role,setRole]=useState()
   const params=useParams()
   const getUsers=async ()=>{
-    const response=await axios.get('https://ems-server-ddw8.onrender.com/api/user/1',{
-      headers:{
-          authorization:`Bearer ${localStorage.getItem("token")}`
-      }
-  })
+    const response=await axios.get('https://ems-server-ddw8.onrender.com/api/user/activeUsers/1')
     if(response.data.users.length == 0){
       const response=await axios.post('https://ems-server-ddw8.onrender.com/api/auth/register',{name:'Admin',email:'Admin@gmail.com',password:'Test123!',role:'Admin'})
       console.log(response)
@@ -38,8 +34,7 @@ export default function App() {
   useEffect(()=>{
     getUsers();
   },[])
-  const verify = async ()=>{
-    
+  const verify = async ()=>{  
     const response=await axios.get('https://ems-server-ddw8.onrender.com/api/auth/verify',{
       headers:{
         authorization:`Bearer ${localStorage.getItem("token")}`
