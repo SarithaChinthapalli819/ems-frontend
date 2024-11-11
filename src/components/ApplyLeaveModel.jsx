@@ -11,7 +11,7 @@ export default function ApplyLeaveModel({openApplyLeaveModel,applyLeave}) {
   const [selectedUser, selectUser] = useState("")
 
   const usersdata = async () => {
-      const response = await axios.get('https://ems-frontend-air2-pdxeney9x-chinthapalli-sarithas-projects.vercel.app/api/user/1',{
+      const response = await axios.get('https://ems-frontend-air2.vercel.app/api/user/1',{
         headers:{
             authorization:`Bearer ${localStorage.getItem("token")}`
         }

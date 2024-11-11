@@ -21,7 +21,7 @@ export default function Login() {
   const submitHandler = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post('https://ems-frontend-air2-pdxeney9x-chinthapalli-sarithas-projects.vercel.app/api/auth/login', { email, password })
+      const response = await axios.post('https://ems-frontend-air2.vercel.app/api/auth/login', { email, password })
       if (response.data.success) {
         toast.success('Login Succesfully ..')
         localStorage.setItem('token', response.data.token)
