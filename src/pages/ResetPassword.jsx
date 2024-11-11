@@ -21,7 +21,7 @@ export default function ResetPassword() {
   const submitHandler = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post('https://ems-frontend-air2.vercel.app/api/auth/resetpassword', { password},
+      const response = await axios.post('https://ems-server-pi.vercel.app/api/auth/resetpassword', { password},
         {headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
         }}

@@ -21,7 +21,7 @@ export default function ForgotPassword() {
   const submitHandler = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post('https://ems-frontend-air2.vercel.app/api/auth/forgotpassword', { email})
+      const response = await axios.post('https://ems-server-pi.vercel.app/api/auth/forgotpassword', { email})
       if (response.data.success) {
         toast.success(response.data.message)
         localStorage.setItem('token', response.data.token)
