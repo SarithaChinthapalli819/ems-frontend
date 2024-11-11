@@ -23,7 +23,7 @@ export default function User() {
   const fileInputRef = useRef(null);
   const [data, setData] = useState([]);
   const addUser = async (name,email,password,role)=>{
-    const response =await axios.post('https://ems-frontend-jkr7.vercel.app/api/auth/register',{name,email,password,role})
+    const response =await axios.post('https://ems-frontend-air2-pdxeney9x-chinthapalli-sarithas-projects.vercel.app/api/auth/register',{name,email,password,role})
     if(response.data.success) {
       toast.success('User Added Successfully ..')
       setusers()
@@ -32,7 +32,7 @@ export default function User() {
     }
   }
   const editUser = async (name,email,role)=>{
-    const response =await axios.put(`https://ems-frontend-jkr7.vercel.app/api/auth/edituser/${currentUser._id}`,{name,email,role})
+    const response =await axios.put(`https://ems-frontend-air2-pdxeney9x-chinthapalli-sarithas-projects.vercel.app/api/auth/edituser/${currentUser._id}`,{name,email,role})
     if(response.data.success) {
       toast.success('User Edited Successfully ..')
       setusers()
@@ -41,7 +41,7 @@ export default function User() {
     }
   }
   const setusers = async ()=>{
-    const response =await axios.get(`https://ems-frontend-jkr7.vercel.app/api/user/${isActive}`,{
+    const response =await axios.get(`https://ems-frontend-air2-pdxeney9x-chinthapalli-sarithas-projects.vercel.app/api/user/${isActive}`,{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
@@ -82,7 +82,7 @@ export default function User() {
 
   const setIsDelete =async (value)=>{
     if(value){
-      const response = await axios.delete(`https://ems-frontend-jkr7.vercel.app/api/auth/deleteuser/${deleteId}`)
+      const response = await axios.delete(`https://ems-frontend-air2-pdxeney9x-chinthapalli-sarithas-projects.vercel.app/api/auth/deleteuser/${deleteId}`)
       if (response.data.success) {
         setusers()
         setDeleteModel(false);
@@ -163,7 +163,7 @@ console.log(data)
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
         setData(jsonData);
         try{
-        const response =await axios.post('https://ems-frontend-jkr7.vercel.app/api/auth/addMulitUsers',{jsonData})
+        const response =await axios.post('https://ems-frontend-air2-pdxeney9x-chinthapalli-sarithas-projects.vercel.app/api/auth/addMulitUsers',{jsonData})
         if(response.data.success){
           toast.success('Users Added Succesfully..')
         }

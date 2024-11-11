@@ -13,10 +13,10 @@ export default function AddProjectMember({openAddMemberPopup,id}) {
     }, [])
 
     const addProjectMember = async ()=>{
-       const response =await axios.get(`https://ems-frontend-jkr7.vercel.app/api/board/getMember/${id}`)
+       const response =await axios.get(`https://ems-frontend-air2-pdxeney9x-chinthapalli-sarithas-projects.vercel.app/api/board/getMember/${id}`)
        setTeammeber(response.data.members[0].User)
        const members=response.data.members[0].User
-       const userresponse = await axios.get('https://ems-frontend-jkr7.vercel.app/api/user/1',{
+       const userresponse = await axios.get('https://ems-frontend-air2-pdxeney9x-chinthapalli-sarithas-projects.vercel.app/api/user/1',{
         headers:{
             authorization:`Bearer ${localStorage.getItem("token")}`
         }
@@ -29,7 +29,7 @@ export default function AddProjectMember({openAddMemberPopup,id}) {
     const addUserToTeam = async (value)=>{
         const member=value
         try{
-       const response=await axios.post(`https://ems-frontend-jkr7.vercel.app/api/board/addMember/${id}`,{member})
+       const response=await axios.post(`https://ems-frontend-air2-pdxeney9x-chinthapalli-sarithas-projects.vercel.app/api/board/addMember/${id}`,{member})
        if(response.data.success){
         toast.success('Added Project Member Successfully..')
         addProjectMember() 
@@ -42,7 +42,7 @@ export default function AddProjectMember({openAddMemberPopup,id}) {
     const removeUser = async (userId) =>{
         const member=userId
         try{
-       const response=await axios.put(`https://ems-frontend-jkr7.vercel.app/api/board/removeMember/${id}`,{member})
+       const response=await axios.put(`https://ems-frontend-air2-pdxeney9x-chinthapalli-sarithas-projects.vercel.app/api/board/removeMember/${id}`,{member})
        if(response.data.success){
         toast.success('Removed Project Member Successfully..')
         addProjectMember() 
