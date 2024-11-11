@@ -15,7 +15,7 @@ export default function Board() {
   const [id,setId]=useState(null)
   const [row,setRow]=useState(null)
   const projectsData= async ()=>{
-    const response = await axios.get('http://localhost:5000/api/board')
+    const response = await axios.get('https://ems-frontend-jkr7.vercel.app/api/board')
     updateProjects(response.data.projects)
   }
 
@@ -26,7 +26,7 @@ export default function Board() {
   const addPorject = async (projectName) => {
     
     try {
-      const response = await axios.post('http://localhost:5000/api/board/addProjects', { projectName })
+      const response = await axios.post('https://ems-frontend-jkr7.vercel.app/api/board/addProjects', { projectName })
       if (response.data.success) {
         toast.success('Added Project Succesfully')
         openAddProjectPopup(false)
@@ -44,7 +44,7 @@ export default function Board() {
   const editPorject = async (projectName) => {
     
     try {
-      const response = await axios.put(`http://localhost:5000/api/board/updateProject/${id}`, { projectName })
+      const response = await axios.put(`https://ems-frontend-jkr7.vercel.app/api/board/updateProject/${id}`, { projectName })
       if (response.data.success) {
         toast.success('Updated the Project Succesfully')
         openAddProjectPopup(false)
@@ -59,7 +59,7 @@ export default function Board() {
     }
   }
   const deleteProject=async (id)=>{
-    const response = await axios.delete(`http://localhost:5000/api/board/deleteProject/${id}`)
+    const response = await axios.delete(`https://ems-frontend-jkr7.vercel.app/api/board/deleteProject/${id}`)
     if (response.data.success) {
       toast.success('Deleted the Project Succesfully')
       openAddProjectPopup(false)

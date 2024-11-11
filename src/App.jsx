@@ -24,13 +24,13 @@ export default function App() {
   const [role,setRole]=useState()
   const params=useParams()
   const getUsers=async ()=>{
-    const response=await axios.get('http://localhost:5000/api/user/1',{
+    const response=await axios.get('https://ems-frontend-jkr7.vercel.app/api/user/1',{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
   })
     if(response.data.users.length == 0){
-      const response=await axios.post('http://localhost:5000/api/auth/register',{name:'Admin',email:'Admin@gmail.com',password:'Test123!',role:'Admin'})
+      const response=await axios.post('https://ems-frontend-jkr7.vercel.app/api/auth/register',{name:'Admin',email:'Admin@gmail.com',password:'Test123!',role:'Admin'})
       console.log(response)
     }
   }
@@ -40,7 +40,7 @@ export default function App() {
   },[])
   const verify = async ()=>{
     
-    const response=await axios.get('http://localhost:5000/api/auth/verify',{
+    const response=await axios.get('https://ems-frontend-jkr7.vercel.app/api/auth/verify',{
       headers:{
         authorization:`Bearer ${localStorage.getItem("token")}`
       }

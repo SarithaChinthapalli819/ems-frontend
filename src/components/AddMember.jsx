@@ -7,7 +7,7 @@ export default function AddMember({closeMemberPopup,teamId}) {
     const [selectedUser, selectUser] = useState("")
     const [teamMembers,setTeammeber]=useState([])
     const usersdata = async () => {
-        const response = await axios.get('http://localhost:5000/api/user/1',{
+        const response = await axios.get('https://ems-frontend-jkr7.vercel.app/api/user/1',{
             headers:{
                 authorization:`Bearer ${localStorage.getItem("token")}`
             }
@@ -22,12 +22,12 @@ export default function AddMember({closeMemberPopup,teamId}) {
     }, [])
 
     const addTeamMember = async ()=>{
-        const response = await axios.get(`http://localhost:5000/api/teams/user/${teamId}`)
+        const response = await axios.get(`https://ems-frontend-jkr7.vercel.app/api/teams/user/${teamId}`)
         setTeammeber(response.data.team.user)
     }
     const addUser = async (userId) =>{
         try{
-        const response = await axios.post(`http://localhost:5000/api/teams/adduser/${teamId}`,{userId})
+        const response = await axios.post(`https://ems-frontend-jkr7.vercel.app/api/teams/adduser/${teamId}`,{userId})
         if(response.data.success){
              toast.success('User Added To Team SuucessFully')
              addTeamMember()
@@ -44,7 +44,7 @@ export default function AddMember({closeMemberPopup,teamId}) {
     }
 
     const removeUser = async (userId) =>{
-      const response = await axios.put(`http://localhost:5000/api/teams/removeuser/${teamId}`,{userId})
+      const response = await axios.put(`https://ems-frontend-jkr7.vercel.app/api/teams/removeuser/${teamId}`,{userId})
       if(response.data.success) 
         {
             toast.success('User Removed SuccessFully ..')  

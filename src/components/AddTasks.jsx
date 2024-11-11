@@ -14,7 +14,7 @@ export default function AddTasks({openAddTaskPopup,row,setRow,addTaks,currentTas
     projectName:''
   })
   const projectsData= async ()=>{
-    const response = await axios.get('http://localhost:5000/api/board')
+    const response = await axios.get('https://ems-frontend-jkr7.vercel.app/api/board')
     updateProjects(response.data.projects)
   }
 
@@ -30,11 +30,11 @@ export default function AddTasks({openAddTaskPopup,row,setRow,addTaks,currentTas
 
   const {taskName,assigneName,priority,projectName}=taskDetails;
     const addProjectMember = async (id)=>{
-      const response =await axios.get(`http://localhost:5000/api/board/getMember/${id}`)
+      const response =await axios.get(`https://ems-frontend-jkr7.vercel.app/api/board/getMember/${id}`)
       setTeammeber(response.data.members[0].User)
   }
   const addUser=async()=>{
-    const response =await axios.get(`http://localhost:5000/api/user/1`,{
+    const response =await axios.get(`https://ems-frontend-jkr7.vercel.app/api/user/1`,{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
