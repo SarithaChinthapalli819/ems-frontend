@@ -21,7 +21,7 @@ export default function ResetPassword() {
   const submitHandler = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post('https://ems-server.onrender.com/api/auth/resetpassword', { password},
+      const response = await axios.post('https://ems-server-ddw8.onrender.com/api/auth/resetpassword', { password},
         {headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
         }}

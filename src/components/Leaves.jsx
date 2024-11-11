@@ -15,7 +15,7 @@ export default function Leaves() {
     const {role} = useContext(context)
     const applyLeave = async (userId,dateFrom,dateTo) =>{
       try{
-        const response = await axios.post('https://ems-server.onrender.com/api/leaves/applyleave',{userId,dateFrom,dateTo})
+        const response = await axios.post('https://ems-server-ddw8.onrender.com/api/leaves/applyleave',{userId,dateFrom,dateTo})
         if (response.data.success ){
             toast.success('Leave Applied Successfully')
             openApplyLeaveModel(false)
@@ -28,7 +28,7 @@ export default function Leaves() {
       }
     }
     const setAppliedLeaves = async  () =>{
-        const response = await axios.get('https://ems-server.onrender.com/api/leaves/myleaves',{
+        const response = await axios.get('https://ems-server-ddw8.onrender.com/api/leaves/myleaves',{
             headers:{
                 authorization:`Bearer ${localStorage.getItem("token")}`
             }
@@ -38,7 +38,7 @@ export default function Leaves() {
          
     }
     const setMyApprovalLeaves = async  () =>{
-      const response = await axios.get(`https://ems-server.onrender.com/api/leaves/myApprovals/${role}`,{
+      const response = await axios.get(`https://ems-server-ddw8.onrender.com/api/leaves/myApprovals/${role}`,{
           headers:{
               authorization:`Bearer ${localStorage.getItem("token")}`
           }
@@ -52,7 +52,7 @@ export default function Leaves() {
     },[role])
 
     const leaveStatusCahange=async (id,cancel,approve,reject,email,name,leavefrom,leaveto)=>{
-      const response = await axios.post(`https://ems-server.onrender.com/api/leaves/cancelOrapproveOrreject/${id}`,{cancel,approve,reject,email,name,leavefrom,leaveto})
+      const response = await axios.post(`https://ems-server-ddw8.onrender.com/api/leaves/cancelOrapproveOrreject/${id}`,{cancel,approve,reject,email,name,leavefrom,leaveto})
       if(response.data.success){ 
        if(cancel) toast.success('Cancelled successfully')
        else if(approve) toast.success('Approved successfully')

@@ -21,7 +21,7 @@ export default function AllTasks() {
   const [activityData, setActivityData] = useState([])
   const [isActivtyTab, openActivityTab] = useState(false)
   const projectsData = async () => {
-    const response = await axios.get('https://ems-server.onrender.com/api/board')
+    const response = await axios.get('https://ems-server-ddw8.onrender.com/api/board')
     updateProjects(response.data.projects)
   }
 
@@ -30,7 +30,7 @@ export default function AllTasks() {
   }, [])
 
   const activityTabData = async () => {
-    const response = await axios.get('https://ems-server.onrender.com/api/tasks/getActivityData')
+    const response = await axios.get('https://ems-server-ddw8.onrender.com/api/tasks/getActivityData')
     setActivityData(response.data.activity)
   }
   console.log(activityData)
@@ -82,7 +82,7 @@ export default function AllTasks() {
     setFilteredRecords(filtered)
   }
   const addProjectMember = async () => {
-    const response = await axios.get(`https://ems-server.onrender.com/api/user/1`, {
+    const response = await axios.get(`https://ems-server-ddw8.onrender.com/api/user/1`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`
       }
@@ -113,7 +113,7 @@ export default function AllTasks() {
   const normalizeStatus = (status) => status.toLowerCase().replace(/\s+/g, '');
 
   const addTaks = async (taskName, userId, selectedDateFrom, projectId, priority) => {
-    const response = await axios.post('https://ems-server.onrender.com/api/tasks/AddTasks', { taskName, userId, selectedDateFrom, projectId, priority }, {
+    const response = await axios.post('https://ems-server-ddw8.onrender.com/api/tasks/AddTasks', { taskName, userId, selectedDateFrom, projectId, priority }, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`
       }
@@ -127,7 +127,7 @@ export default function AllTasks() {
 
   const editTasks = async (taskName, userId, selectedDateFrom, projectId, priority) => {
 
-    const response = await axios.put(`https://ems-server.onrender.com/api/tasks/updateTasks/${currentTask._id}`, { taskName, userId, selectedDateFrom, projectId, priority })
+    const response = await axios.put(`https://ems-server-ddw8.onrender.com/api/tasks/updateTasks/${currentTask._id}`, { taskName, userId, selectedDateFrom, projectId, priority })
     if (response.data.success) {
       toast.success('Task Updated Successfully ..')
       openAddTaskPopup(false)
@@ -137,7 +137,7 @@ export default function AllTasks() {
 
   const deleteTasks = async (id) => {
 
-    const response = await axios.delete(`https://ems-server.onrender.com/api/tasks/deleteTasks/${id}`)
+    const response = await axios.delete(`https://ems-server-ddw8.onrender.com/api/tasks/deleteTasks/${id}`)
     if (response.data.success) {
       toast.success('Task Deleted Successfully ..')
       openAddTaskPopup(false)
@@ -146,13 +146,13 @@ export default function AllTasks() {
   }
 
   const tasksValue = async () => {
-    const response = await axios.get(`https://ems-server.onrender.com/api/tasks/getAllTasks`)
+    const response = await axios.get(`https://ems-server-ddw8.onrender.com/api/tasks/getAllTasks`)
     getAllTasks(response.data.tasks)
 
   }
 
   const statusChange = async (title, id) => {
-    const response = await axios.put(`https://ems-server.onrender.com/api/tasks/updateTaskStatus/${id}`, { title },
+    const response = await axios.put(`https://ems-server-ddw8.onrender.com/api/tasks/updateTaskStatus/${id}`, { title },
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`
@@ -160,7 +160,7 @@ export default function AllTasks() {
       }
     )
     if (response.data.success) {
-      const response = await axios.get(`https://ems-server.onrender.com/api/tasks/getAllTasks`)
+      const response = await axios.get(`https://ems-server-ddw8.onrender.com/api/tasks/getAllTasks`)
       getAllTasks(response.data.tasks)
     }
 
