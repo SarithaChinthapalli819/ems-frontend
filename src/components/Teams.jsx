@@ -171,7 +171,7 @@ export default function Teams() {
           customStyles={customStyles}
           striped
         />
-        : filteredTeams  && filteredTeams.length==0 && <div className='flex items-center justify-center w-full'><img width="600px" height="600px" src={nodataimag}/></div>
+        : filteredTeams  && filteredTeams.length==0 && <div className='flex items-center justify-center w-full' style={{height:"70vh"}}><img width="600px" height="600px" src={nodataimag}/></div>
 }
     </div>
   );

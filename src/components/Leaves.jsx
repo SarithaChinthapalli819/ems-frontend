@@ -161,7 +161,7 @@ export default function Leaves() {
           paginationRowsPerPageOptions={[ 10, 20]}
           customStyles={customStyles}
           striped
-        /> : myLeaves && appliedLeaves && appliedLeaves.length==0 && <div className='flex items-center justify-center w-full'><img width="600px" height="600px" src={nodataimag}/></div>
+        /> : myLeaves && appliedLeaves && appliedLeaves.length==0 && <div className='flex items-center justify-center w-full' style={{height:"70vh"}}><img width="600px" height="600px" src={nodataimag}/></div>
       }
       {
         (isMyApprovals && apprvoalLeaves && apprvoalLeaves.length>0) ?
@@ -173,7 +173,7 @@ export default function Leaves() {
           paginationRowsPerPageOptions={[10, 20]}
           customStyles={customStyles}
           striped
-        /> : isMyApprovals && apprvoalLeaves && apprvoalLeaves.length==0 &&<div className='flex items-center justify-center w-full'><img width="600px" height="600px" src={nodataimag}/></div>
+        /> : isMyApprovals && apprvoalLeaves && apprvoalLeaves.length==0 &&<div className='flex items-center justify-center w-full' style={{height:"70vh"}}><img width="600px" height="600px" src={nodataimag}/></div>
       }
     </div>
   );

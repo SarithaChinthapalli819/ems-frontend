@@ -314,7 +314,7 @@ function UserTasks() {
         customStyles={customStyles}
         striped
       />
-     : isHorizontal && tasks && tasks.length==0 && <div className='flex items-center justify-center w-full'><img width="600px" height="600px" src={nodataimag}/></div>
+     : isHorizontal && tasks && tasks.length==0 && <div className='flex items-center justify-center w-full' style={{height:"70vh"}}><img width="600px" height="600px" src={nodataimag}/></div>
 }
     </div>
      

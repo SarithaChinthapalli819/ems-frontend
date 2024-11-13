@@ -304,7 +304,7 @@ export default function AllTasks() {
           customStyles={customStyles}
           striped
         />
-        : !isActivtyTab && filteredRecords  && filteredRecords.length==0 && <div className='flex items-center justify-center w-full'><img width="600px" height="600px" src={nodataimag}/></div>
+        : !isActivtyTab && filteredRecords  && filteredRecords.length==0 && <div className='flex items-center justify-center w-full' style={{height:"70vh"}}><img width="600px" height="600px" src={nodataimag}/></div>
 }
       {isActivtyTab &&
 
