@@ -80,36 +80,26 @@ export default function App() {
       </li>}</Link>
     </ul> }
     <div className='flex-grow'>
-    if (user) {
-        <Routes>
-          <Route path="/user" element={<User />} />
-          <Route path="/teams" element={<Teams />} />
-          <Route path="/leaves" element={<Leaves />} />
-          <Route path="/board" element={<Board />} />
-          <Route path="/usertasks" element={<UserTasks />} />
-          <Route path="/alltasks" element={<AllTasks />} />
-          <Route path="/overview" element={<TasksOverview />} />
-          <Route path="*" element={<Navigate to="/user" />} /> {/* Default to /user */}
-        </Routes>
-      } else {
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/resetpassword" element={<ResetPassword />} />
-          <Route path="*" element={<Navigate to="/" />} /> {/* Default to login */}
-        </Routes>
-     };
+   { user ? 
 
-  return (
-    <div style={{ height: '100%' }}>
-      <context.Provider value={{ user, setUser, role, setRole }}>
-        <BrowserRouter>
-          {renderRoutes()}
-        </BrowserRouter>
-        <ToastContainer />
-      </context.Provider>
-    </div>
-  );
+    <Routes>
+      <Route path="/user" element={<User />} />
+      <Route path="/teams" element={<Teams />} />
+      <Route path="/leaves" element={<Leaves />} />
+      <Route path="/board" element={<Board />} />
+      <Route path="/usertasks" element={<UserTasks />} />
+      <Route path="/alltasks" element={<AllTasks />} />
+      <Route path="/overview" element={<TasksOverview />} />
+      <Route path="*" element={<Navigate to="/user" />} /> 
+    </Routes>
+    :
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/forgotpassword" element={<ForgotPassword />} />
+      <Route path="/resetpassword" element={<ResetPassword />} />
+      <Route path="*" element={<Navigate to="/" />} /> 
+    </Routes>
+}
       </div>
       </div>
       <ToastContainer/>
