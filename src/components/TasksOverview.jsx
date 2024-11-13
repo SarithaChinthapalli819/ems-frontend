@@ -11,7 +11,7 @@ export default function TasksOverview() {
     const [assigneName,setAssigneName] = useState()
     const [employeeTasks,setEmployeeTasks] = useState([])
     const fetchTasks = async () => {
-        const response = await axios.get('https://ems-server-ddw8.onrender.com/api/tasks/getAllTasks');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks/getAllTasks`);
         setTasks(response.data.tasks);
     };
 
@@ -20,7 +20,7 @@ export default function TasksOverview() {
     }, []);
 
     const addProjectMember = async ()=>{
-        const response =await axios.get(`https://ems-server-ddw8.onrender.com/api/user/1`,{
+        const response =await axios.get(`${import.meta.env.VITE_API_URL}/api/user/1`,{
             headers:{
                 authorization:`Bearer ${localStorage.getItem("token")}`
             }

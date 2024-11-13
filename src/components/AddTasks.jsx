@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+
 export default function AddTasks({openAddTaskPopup,row,setRow,addTaks,currentTask,editTasks,isfromAllTasks}) {
   const [selectedDateFrom, setSelectedDateFrom] = useState(null);
   const normalizeStatus = (status) => status.toLowerCase().replace(/\s+/g, '');
@@ -14,7 +15,7 @@ export default function AddTasks({openAddTaskPopup,row,setRow,addTaks,currentTas
     projectName:''
   })
   const projectsData= async ()=>{
-    const response = await axios.get('https://ems-server-ddw8.onrender.com/api/board')
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/board`)
     updateProjects(response.data.projects)
   }
 
@@ -30,11 +31,11 @@ export default function AddTasks({openAddTaskPopup,row,setRow,addTaks,currentTas
 
   const {taskName,assigneName,priority,projectName}=taskDetails;
     const addProjectMember = async (id)=>{
-      const response =await axios.get(`https://ems-server-ddw8.onrender.com/api/board/getMember/${id}`)
+      const response =await axios.get(`${import.meta.env.VITE_API_URL}/api/board/getMember/${id}`)
       setTeammeber(response.data.members[0].User)
   }
   const addUser=async()=>{
-    const response =await axios.get(`https://ems-server-ddw8.onrender.com/api/user/1`,{
+    const response =await axios.get(`${import.meta.env.VITE_API_URL}/api/user/1`,{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }

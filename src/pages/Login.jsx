@@ -21,7 +21,7 @@ export default function Login() {
   const submitHandler = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post('https://ems-server-ddw8.onrender.com/api/auth/login', { email, password })
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, { email, password })
       if (response.data.success) {
         toast.success('Login Succesfully ..')
         localStorage.setItem('token', response.data.token)

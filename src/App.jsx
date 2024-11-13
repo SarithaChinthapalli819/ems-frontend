@@ -16,7 +16,6 @@ import UserTasks from './components/UserTasks';
 import AllTasks from './components/AllTasks';
 import TasksOverview from './components/TasksOverview';
 
-
 export  const context=createContext()
 
 export default function App() {
@@ -24,18 +23,18 @@ export default function App() {
   const [role,setRole]=useState()
   const params=useParams()
   const getUsers=async ()=>{
-    const response=await axios.get('https://ems-server-ddw8.onrender.com/api/user/activeUsers/1')
+    const response=await axios.get(`${import.meta.env.VITE_API_URL}/api/user/activeUsers/1`)
     if(response.data.users.length == 0){
-      const response=await axios.post('https://ems-server-ddw8.onrender.com/api/auth/register',{name:'Admin',email:'Admin@gmail.com',password:'Test123!',role:'Admin'})
+      const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`,{name:'Admin',email:'Admin@gmail.com',password:'Test123!',role:'Admin'})
       console.log(response)
     }
   }
-  console.log(params)
+
   useEffect(()=>{
     getUsers();
   },[])
-  const verify = async ()=>{  
-    const response=await axios.get('https://ems-server-ddw8.onrender.com/api/auth/verify',{
+  const verify = async ()=>{ 
+    const response=await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/verify`,{
       headers:{
         authorization:`Bearer ${localStorage.getItem("token")}`
       }
@@ -57,7 +56,7 @@ export default function App() {
       <div className='flex flex-row '>
       
 
-    <ul className="nav flex-column navbar-dark h-screen pe-4" style={{backgroundColor:'#34495e'}}>
+   {user && <ul className="nav flex-column navbar-dark h-screen pe-4" style={{backgroundColor:'#34495e'}}>
      <Link to='/user' style={{textDecoration:'none'}}> <li className="nav-item px-4 py-2">
         <a className="nav-link active text-white" aria-current="page">{role === 'Admin' ? 'Users' :'My Profile'}</a>
       </li></Link>
@@ -79,7 +78,7 @@ export default function App() {
       <Link to='/overview' style={{textDecoration:'none'}}> {role === 'Admin' &&<li className="nav-item px-4 py-2">
         <a className="nav-link text-white" >Tasks Overview</a>
       </li>}</Link>
-    </ul>
+    </ul> }
     <div className='flex-grow'>
       <Routes>
       <Route path='/' element={<Login/>}></Route>

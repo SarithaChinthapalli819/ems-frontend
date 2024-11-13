@@ -7,7 +7,7 @@ export default function AddMember({closeMemberPopup,teamId}) {
     const [selectedUser, selectUser] = useState("")
     const [teamMembers,setTeammeber]=useState([])
     const usersdata = async () => {
-        const response = await axios.get('https://ems-server-ddw8.onrender.com/api/user/1',{
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/1`,{
             headers:{
                 authorization:`Bearer ${localStorage.getItem("token")}`
             }
@@ -22,12 +22,12 @@ export default function AddMember({closeMemberPopup,teamId}) {
     }, [])
 
     const addTeamMember = async ()=>{
-        const response = await axios.get(`https://ems-server-ddw8.onrender.com/api/teams/user/${teamId}`)
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/teams/user/${teamId}`)
         setTeammeber(response.data.team.user)
     }
     const addUser = async (userId) =>{
         try{
-        const response = await axios.post(`https://ems-server-ddw8.onrender.com/api/teams/adduser/${teamId}`,{userId})
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/teams/adduser/${teamId}`,{userId})
         if(response.data.success){
              toast.success('User Added To Team SuucessFully')
              addTeamMember()
@@ -44,7 +44,7 @@ export default function AddMember({closeMemberPopup,teamId}) {
     }
 
     const removeUser = async (userId) =>{
-      const response = await axios.put(`https://ems-server-ddw8.onrender.com/api/teams/removeuser/${teamId}`,{userId})
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/teams/removeuser/${teamId}`,{userId})
       if(response.data.success) 
         {
             toast.success('User Removed SuccessFully ..')  
@@ -62,9 +62,9 @@ export default function AddMember({closeMemberPopup,teamId}) {
                     ))
                     }
                 </select>
-
-                <table className="table table-striped table-hover">
-                    <thead>
+                
+                <table style={{maxHeight:"300px",overflowY:"auto" }} className="table table-striped table-hover">
+                    <thead className='sticky'>
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
@@ -87,7 +87,7 @@ export default function AddMember({closeMemberPopup,teamId}) {
                         )}
                     </tbody>
                 </table>
-
+               
                 <button className='btn'  style={{backgroundColor:'#e74c3c',color:'white'}} onClick={()=>closeMemberPopup()}>Close</button>
             </div>
         </div>

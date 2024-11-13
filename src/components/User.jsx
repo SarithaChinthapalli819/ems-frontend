@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import DeleteModel from './DeleteModel';
 import { context } from '../App';
 import * as XLSX from 'xlsx';
-
+import nodataimag from '../assets/nodataimag.jpg'
 export default function User() {
   const [openAddModel,setAddModel]=useState(false)
   const [users,setUsers]=useState([])
@@ -23,7 +23,7 @@ export default function User() {
   const fileInputRef = useRef(null);
   const [data, setData] = useState([]);
   const addUser = async (name,email,password,role)=>{
-    const response =await axios.post('https://ems-server-ddw8.onrender.com/api/auth/register',{name,email,password,role})
+    const response =await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`,{name,email,password,role})
     if(response.data.success) {
       toast.success('User Added Successfully ..')
       setusers()
@@ -32,7 +32,7 @@ export default function User() {
     }
   }
   const editUser = async (name,email,role)=>{
-    const response =await axios.put(`https://ems-server-ddw8.onrender.com/api/auth/edituser/${currentUser._id}`,{name,email,role})
+    const response =await axios.put(`${import.meta.env.VITE_API_URL}/api/auth/edituser/${currentUser._id}`,{name,email,role})
     if(response.data.success) {
       toast.success('User Edited Successfully ..')
       setusers()
@@ -41,13 +41,13 @@ export default function User() {
     }
   }
   const setusers = async ()=>{
-    const response =await axios.get(`https://ems-server-ddw8.onrender.com/api/user/${isActive}`,{
+    const response =await axios.get(`${import.meta.env.VITE_API_URL}/api/user/${isActive}`,{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
   })
     setUsers(response.data.users)
-   
+   console.log(response.data.users)
   }
 
   const filtering = (value)=>{
@@ -82,7 +82,7 @@ export default function User() {
 
   const setIsDelete =async (value)=>{
     if(value){
-      const response = await axios.delete(`https://ems-server-ddw8.onrender.com/api/auth/deleteuser/${deleteId}`)
+      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/auth/deleteuser/${deleteId}`)
       if (response.data.success) {
         setusers()
         setDeleteModel(false);
@@ -163,7 +163,7 @@ console.log(data)
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
         setData(jsonData);
         try{
-        const response =await axios.post('https://ems-server-ddw8.onrender.com/api/auth/addMulitUsers',{jsonData})
+        const response =await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/addMulitUsers`,{jsonData})
         if(response.data.success){
           toast.success('Users Added Succesfully..')
         }
@@ -200,12 +200,13 @@ console.log(data)
         columns={columns}
         data={filteredUsers}
         pagination
-        paginationPerPage={5}
-        paginationRowsPerPageOptions={[5, 10, 20]}
+        paginationPerPage={10}
+          paginationRowsPerPageOptions={[10, 20]}
         customStyles={customStyles}
         striped
       />
-     : 'No users Found'}
+     : filteredUsers  && filteredUsers.length==0 && <div className='flex items-center justify-center w-full'><img width="600px" height="600px" src={nodataimag}/></div>
+}
     </div>
   );
 }

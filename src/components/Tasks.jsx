@@ -6,7 +6,7 @@ import DataTable from 'react-data-table-component';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import * as XLSX from 'xlsx';
-
+import nodataimag from '../assets/nodataimag.jpg'
 export default function Tasks({row,openTaskPage}) {
   const [addTaskPopup,openAddTaskPopup]=useState(false)
   const [tasks,getTasks]=useState([])
@@ -53,7 +53,7 @@ export default function Tasks({row,openTaskPage}) {
   }
 
   const addProjectMember = async ()=>{
-    const response =await axios.get(`https://ems-server-ddw8.onrender.com/api/board/getMember/${row._id}`)
+    const response =await axios.get(`${import.meta.env.VITE_API_URL}/api/board/getMember/${row._id}`)
     setTeammeber(response.data.members[0].User)
   }
 
@@ -81,7 +81,7 @@ export default function Tasks({row,openTaskPage}) {
 
   const addTaks = async(taskName,userId,selectedDateFrom,projectId,priority)=>{
     
-    const response = await axios.post('https://ems-server-ddw8.onrender.com/api/tasks/AddTasks',{taskName,userId,selectedDateFrom,projectId,priority},{
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/tasks/AddTasks`,{taskName,userId,selectedDateFrom,projectId,priority},{
         headers:{
             authorization:`Bearer ${localStorage.getItem("token")}`
         }
@@ -96,7 +96,7 @@ export default function Tasks({row,openTaskPage}) {
   
   const editTasks = async(taskName,userId,selectedDateFrom,projectId,priority)=>{
     
-    const response = await axios.put(`https://ems-server-ddw8.onrender.com/api/tasks/updateTasks/${currentTask._id}`,{taskName,userId,selectedDateFrom,projectId,priority})
+    const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/tasks/updateTasks/${currentTask._id}`,{taskName,userId,selectedDateFrom,projectId,priority})
     if(response.data.success)
     {
       toast.success('Task Updated Successfully ..')
@@ -107,7 +107,7 @@ export default function Tasks({row,openTaskPage}) {
 
   const deleteTasks = async(id)=>{
     
-    const response = await axios.delete(`https://ems-server-ddw8.onrender.com/api/tasks/deleteTasks/${id}`)
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/tasks/deleteTasks/${id}`)
     if(response.data.success)
     {
       toast.success('Task Deleted Successfully ..')
@@ -117,7 +117,7 @@ export default function Tasks({row,openTaskPage}) {
   }
 
   const tasksValue = async()=>{
-    const response = await axios.get(`https://ems-server-ddw8.onrender.com/api/tasks/getTasks/${row._id}`,{
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks/getTasks/${row._id}`,{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
@@ -127,13 +127,13 @@ export default function Tasks({row,openTaskPage}) {
   }
 
   const statusChange =async (title,id)=>{
-    const response = await axios.put(`https://ems-server-ddw8.onrender.com/api/tasks/updateTaskStatus/${id}`,{title},{
+    const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/tasks/updateTaskStatus/${id}`,{title},{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
   })
     if(response.data.success){
-      const response = await axios.get(`https://ems-server-ddw8.onrender.com/api/tasks/getTasks/${row._id}`,{
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks/getTasks/${row._id}`,{
         headers:{
             authorization:`Bearer ${localStorage.getItem("token")}`
         }
@@ -268,12 +268,13 @@ export default function Tasks({row,openTaskPage}) {
         columns={columns}
         data={filteredRecords}
         pagination
-        paginationPerPage={5}
-        paginationRowsPerPageOptions={[5, 10, 20]}
+        paginationPerPage={10}
+          paginationRowsPerPageOptions={[10, 20]}
         customStyles={customStyles}
         striped
       />
-     : 'No Tasks Found'}
+     : filteredRecords  && filteredRecords.length==0 && <div className='flex items-center justify-center w-full'><img width="600px" height="600px" src={nodataimag}/></div>
+}
      
     </div>
   );

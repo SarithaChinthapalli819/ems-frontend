@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import DataTable from 'react-data-table-component';
 import AddProjectMember from './AddProjectMember';
 import Tasks from './Tasks';
-
+import nodataimag from '../assets/nodataimag.jpg'
 export default function Board() {
   const [addProjectPopup, openAddProjectPopup] = useState(false)
   const [addMemberPopup,openAddMemberPopup] = useState(false)
@@ -15,7 +15,7 @@ export default function Board() {
   const [id,setId]=useState(null)
   const [row,setRow]=useState(null)
   const projectsData= async ()=>{
-    const response = await axios.get('https://ems-server-ddw8.onrender.com/api/board')
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/board`)
     updateProjects(response.data.projects)
   }
 
@@ -26,7 +26,7 @@ export default function Board() {
   const addPorject = async (projectName) => {
     
     try {
-      const response = await axios.post('https://ems-server-ddw8.onrender.com/api/board/addProjects', { projectName })
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/board/addProjects`, { projectName })
       if (response.data.success) {
         toast.success('Added Project Succesfully')
         openAddProjectPopup(false)
@@ -44,7 +44,7 @@ export default function Board() {
   const editPorject = async (projectName) => {
     
     try {
-      const response = await axios.put(`https://ems-server-ddw8.onrender.com/api/board/updateProject/${id}`, { projectName })
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/board/updateProject/${id}`, { projectName })
       if (response.data.success) {
         toast.success('Updated the Project Succesfully')
         openAddProjectPopup(false)
@@ -59,7 +59,7 @@ export default function Board() {
     }
   }
   const deleteProject=async (id)=>{
-    const response = await axios.delete(`https://ems-server-ddw8.onrender.com/api/board/deleteProject/${id}`)
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/board/deleteProject/${id}`)
     if (response.data.success) {
       toast.success('Deleted the Project Succesfully')
       openAddProjectPopup(false)
@@ -133,12 +133,13 @@ export default function Board() {
         columns={columns}
         data={projects}
         pagination
-        paginationPerPage={5}
-        paginationRowsPerPageOptions={[5, 10, 20]}
+        paginationPerPage={10}
+        paginationRowsPerPageOptions={[10, 20]}
         customStyles={customStyles}
         striped
       />
-     : !taskpage && 'No Projects Found'}
+     : !taskpage && projects && projects.length ==0 && <div className='flex items-center justify-center w-full'><img width="600px" height="600px" src={nodataimag}/></div>
+}
      {
       !taskpage && addMemberPopup && <AddProjectMember openAddMemberPopup={openAddMemberPopup} id={id}/>
      }

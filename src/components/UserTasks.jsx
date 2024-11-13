@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { context } from '../App';
 import DataTable from 'react-data-table-component';
-
+import nodataimag from '../assets/nodataimag.jpg'
 const columnColors = {
   new: 'rgb(183, 183, 183)',
   inprogress: 'rgb(51, 178, 255)',
@@ -42,13 +42,13 @@ function UserTasks() {
   }
   )
   const statusChange =async (title,id)=>{
-    const response = await axios.put(`https://ems-server-ddw8.onrender.com/api/tasks/updateTaskStatus/${id}`,{title},{
+    const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/tasks/updateTaskStatus/${id}`,{title},{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
   })
     if(response.data.success){
-      const response = await axios.get(`https://ems-server-ddw8.onrender.com/api/tasks/getMyTasks/${role}`,{
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks/getMyTasks/${role}`,{
         headers:{
             authorization:`Bearer ${localStorage.getItem("token")}`
         }
@@ -125,7 +125,7 @@ function UserTasks() {
   };
 
   const tasksValue = async()=>{
-    const response = await axios.get(`https://ems-server-ddw8.onrender.com/api/tasks/getMyTasks/${role}`,{
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks/getMyTasks/${role}`,{
       headers:{
           authorization:`Bearer ${localStorage.getItem("token")}`
       }
@@ -211,13 +211,13 @@ function UserTasks() {
         },
       });
      
-      const response = await axios.put(`https://ems-server-ddw8.onrender.com/api/tasks/updateTaskStatus/${draggableId}`,{title},{
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/tasks/updateTaskStatus/${draggableId}`,{title},{
         headers:{
             authorization:`Bearer ${localStorage.getItem("token")}`
         }
     })
       if(response.data.success){
-        const response = await axios.get(`https://ems-server-ddw8.onrender.com/api/tasks/getMyTasks/${role}`,{
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks/getMyTasks/${role}`,{
           headers:{
               authorization:`Bearer ${localStorage.getItem("token")}`
           }
@@ -309,12 +309,13 @@ function UserTasks() {
         columns={columns}
         data={tasks}
         pagination
-        paginationPerPage={5}
-        paginationRowsPerPageOptions={[5, 10, 20]}
+        paginationPerPage={10}
+          paginationRowsPerPageOptions={[10, 20]}
         customStyles={customStyles}
         striped
       />
-     : 'No Tasks Found'}
+     : isHorizontal && tasks && tasks.length==0 && <div className='flex items-center justify-center w-full'><img width="600px" height="600px" src={nodataimag}/></div>
+}
     </div>
      
      </>

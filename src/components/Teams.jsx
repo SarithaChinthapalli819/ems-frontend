@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import AddEditTeams from './AddEditTeams';
 import axios from 'axios';
 import DataTable from 'react-data-table-component';
-import styled from 'styled-components';
 import DeleteModel from './DeleteModel'
 import AddMember from './AddMember';
-import { toast } from 'react-toastify';
+import nodataimag from '../assets/nodataimag.jpg'
 export default function Teams() {
   const [teamModel, setTeamModel] = useState(false)
   const [teams, setTeams] = useState([])
@@ -20,7 +19,7 @@ export default function Teams() {
   const [isActive, setIsActiveValue] = useState(1)
 
   const teamsChange = async () => {
-    const response = await axios.get(`https://ems-server-ddw8.onrender.com/api/teams/${isActive}`)
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/teams/${isActive}`)
     if (response.data.success) {
       console.log(response.data.teams)
       const teamdetails = response.data.teams.map((item) => ({
@@ -60,7 +59,7 @@ export default function Teams() {
     setTeamModel(true)
   }
   const addTeam = async (teamname) => {
-    const response = await axios.post('https://ems-server-ddw8.onrender.com/api/teams/addteam', { teamname })
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/teams/addteam`, { teamname })
 
     if (response.data.success) {
       setTeamModel(false)
@@ -68,7 +67,7 @@ export default function Teams() {
     }
   }
   const editTeam = async (teamname) => {
-    const response = await axios.put(`https://ems-server-ddw8.onrender.com/api/teams/editteam/${currentTeam.id}`, { teamname })
+    const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/teams/editteam/${currentTeam.id}`, { teamname })
     if (response.data.success) {
       setTeamModel(false)
       setCurrentTeam(null)
@@ -84,7 +83,7 @@ export default function Teams() {
   const setIsDelete = async (value) => {
     console.log(value)
     if (value) {
-      const response = await axios.delete(`https://ems-server-ddw8.onrender.com/api/teams/deleteteam/${deleteId}`)
+      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/teams/deleteteam/${deleteId}`)
       if (response.data.success) {
         teamsChange()
         setDeleteModel(false);
@@ -167,12 +166,13 @@ export default function Teams() {
           columns={columns}
           data={filteredTeams}
           pagination
-          paginationPerPage={5}
-          paginationRowsPerPageOptions={[5, 10, 20]}
+          paginationPerPage={10}
+          paginationRowsPerPageOptions={[ 10, 20]}
           customStyles={customStyles}
           striped
         />
-        : 'No Teams Found'}
+        : filteredTeams  && filteredTeams.length==0 && <div className='flex items-center justify-center w-full'><img width="600px" height="600px" src={nodataimag}/></div>
+}
     </div>
   );
 }
