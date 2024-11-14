@@ -230,7 +230,7 @@ export default function Tasks({row,openTaskPage}) {
 
 
   return (
-    <div>
+    <div style={{height:"100%"}}>
       <div className='flex flex-row justify-between'>
       <button className='btn btn-primary m-3 float-end' onClick={()=>openTaskPage(false)}> + Back To Projects</button>
       <div className="flex items-center w-50 justify-content-around">
@@ -264,6 +264,7 @@ export default function Tasks({row,openTaskPage}) {
       </div>
       {addTaskPopup && <AddTasks openAddTaskPopup={openAddTaskPopup} row={row} addTaks={addTaks} currentTask={currentTask} editTasks={editTasks} deleteTasks={deleteTasks} isfromAllTasks={isfromAllTasks}/>}
       {filteredRecords && filteredRecords.length > 0 ? 
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <DataTable
         columns={columns}
         data={filteredRecords}
@@ -272,7 +273,10 @@ export default function Tasks({row,openTaskPage}) {
           paginationRowsPerPageOptions={[10, 20]}
         customStyles={customStyles}
         striped
+        fixedHeader
+        fixedHeaderScrollHeight="calc(100vh - 200px)"
       />
+      </div>
      : filteredRecords  && filteredRecords.length==0 && <div className='flex items-center justify-center w-full' style={{height:"70vh"}}><img width="600px" height="600px" src={nodataimag}/></div>
 }
      

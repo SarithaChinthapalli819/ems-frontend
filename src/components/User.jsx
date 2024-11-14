@@ -144,7 +144,7 @@ export default function User() {
         textAlign: 'center', 
         padding:'10px'
       },
-    },
+    }
   };
 
   const handleButtonClick = () => {
@@ -176,7 +176,7 @@ console.log(data)
     }
   };
   return (
-    <div>
+    <div style={{height:"100%"}}>
       {deleteModelOpen  && <DeleteModel setIsDelete={setIsDelete}/>}
       {openAddModel && <AddEditUser setAddModel={setAddModel} addUser={addUser} editUser={editUser} currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
       {role !='Admin' && <h3 className='m-3'>My Profile:</h3>}
@@ -196,15 +196,19 @@ console.log(data)
         </div>
         </div>}
       {filteredUsers && filteredUsers.length > 0 ? 
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <DataTable
         columns={columns}
         data={filteredUsers}
         pagination
         paginationPerPage={10}
-          paginationRowsPerPageOptions={[10, 20]}
+        paginationRowsPerPageOptions={[10, 20]}
         customStyles={customStyles}
         striped
+        fixedHeader
+        fixedHeaderScrollHeight="calc(100vh - 200px)"
       />
+    </div>
      : filteredUsers  && filteredUsers.length==0 && <div className='flex items-center justify-center w-full' style={{height:"70vh"}}><img width="600px" height="600px" src={nodataimag}/></div>
 }
     </div>

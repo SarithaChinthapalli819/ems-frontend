@@ -229,7 +229,7 @@ function UserTasks() {
 
   return (
     <>
-    <div className='flex flex-col h-screen'>
+    <div className='flex flex-col' style={{height:"100%"}}>
       <div className='flex justify-end p-6 flex-wrap'>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6" onClick={()=>{setHorizontal(true);setVertical(false)}}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
@@ -305,6 +305,7 @@ function UserTasks() {
       </div>}
 
       {isHorizontal && tasks && tasks.length > 0 ? 
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <DataTable
         columns={columns}
         data={tasks}
@@ -313,7 +314,10 @@ function UserTasks() {
           paginationRowsPerPageOptions={[10, 20]}
         customStyles={customStyles}
         striped
+        fixedHeader
+        fixedHeaderScrollHeight="calc(100vh - 200px)"
       />
+      </div>
      : isHorizontal && tasks && tasks.length==0 && <div className='flex items-center justify-center w-full' style={{height:"70vh"}}><img width="600px" height="600px" src={nodataimag}/></div>
 }
     </div>

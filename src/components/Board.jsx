@@ -123,12 +123,13 @@ export default function Board() {
     },
   };
   return (
-    <div>
-     {!taskpage && <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded m-3 float-end' onClick={() => {setCurrentProject(null);openAddProjectPopup(true)}}> + Add Projects</button>}
+    <div style={{height:"100%"}}>
+     {!taskpage && <div className='flex flex-row justify-end'><button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded m-3' onClick={() => {setCurrentProject(null);openAddProjectPopup(true)}}> + Add Projects</button></div>}
       {
        !taskpage && addProjectPopup && <AddProject openAddProjectPopup={openAddProjectPopup} addPorject={addPorject} currentProject={currentProject} setCurrentProject={setCurrentProject} editPorject={editPorject}/>
       }
       {!taskpage && projects && projects.length > 0 ? 
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <DataTable
         columns={columns}
         data={projects}
@@ -137,7 +138,10 @@ export default function Board() {
         paginationRowsPerPageOptions={[10, 20]}
         customStyles={customStyles}
         striped
+        fixedHeader
+        fixedHeaderScrollHeight="calc(100vh - 200px)"
       />
+      </div>
      : !taskpage && projects && projects.length ==0 && <div className='flex items-center justify-center w-full' style={{height:"70vh"}}><img width="600px" height="600px" src={nodataimag}/></div>
 }
      {
